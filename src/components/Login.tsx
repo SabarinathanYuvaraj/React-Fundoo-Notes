@@ -3,21 +3,27 @@ import { TextField } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { loginCall } from '../utils/UserService';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailValidator, setEmailValidator] = useState(false);
   const [passwordValidator, setPasswordValidator] = useState(false);
+   const navigate = useNavigate()
 
-  const handleLogin = () => {
+  
+
+  const handleLogin = async() => {
     const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
     setEmailValidator(!emailRegex.test(email));
 
     setPasswordValidator(password.length < 6);
 
     if (!emailValidator && !passwordValidator) {
-       const res = loginCall({"email": email , "password" : password})
+       const res = await loginCall({"email": email , "password" : password})
+       console.log(res);
+       navigate("/dashboard/notes")
       console.log("Email and password are valid. Logging in...");
     }
   };

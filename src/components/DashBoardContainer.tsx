@@ -1,15 +1,18 @@
 import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
-import Note from "./Note";
+import Note from "./CreateNote";
 
 function DashBoardContainer(){
     return (
         <>
+        <div >
         <NavBar/>
-        <SideBar/>
-        <Note/>
-        <Outlet/>
+            <div className="flex">
+            <SideBar/>
+            <Outlet/>
+            </div>
+        </div>
         </>
     )
 }

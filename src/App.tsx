@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Note from './components/Note';
+import Note from './components/CreateNote';
 import NoteCard from './components/NoteCard';
 import NavBar from './components/NavBar';
 import RoutingModule from './RoutingModule';

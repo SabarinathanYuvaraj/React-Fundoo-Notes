@@ -1,5 +1,18 @@
 import axios from "axios";
+import { error } from "console";
+import { Navigate } from "react-router-dom";
 
+const configForUser = () => {
+  const accessToken = localStorage.getItem("accessToken")
+  const header = {
+    headers : {
+      "Content-Type" : "application/json",
+      Authorization : accessToken 
+    }
+  }
+  return header
+}
+  
 export async function loginCall(data : {email:string,password:string}){
     await axios.post("https://fundoonotes.incubation.bridgelabz.com/api/user/login",
       data
@@ -16,3 +29,16 @@ export async function loginCall(data : {email:string,password:string}){
           });
         }
 
+
+        export async function createUser(userObj: object) {
+          await axios.post("https://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp",
+          userObj).then(res => {
+             localStorage.setItem("accessToken", res.data.id);
+          }).catch(
+            error => {
+              const err = error.response.data.error.message
+            }
+          )
+        }
+
+       

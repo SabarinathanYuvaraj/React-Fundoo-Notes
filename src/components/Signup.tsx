@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import logo from '../assets/signup-logo.png';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { createUser } from '../utils/UserService';
 
 function Signup() {
   const[firstName, setFirstName] = useState("")
@@ -17,6 +19,8 @@ function Signup() {
   const [ConfirmPasswordValidator, setConfirmPasswordValidator] = useState(false);
   const [passwordComparison , setPasswordComparison] = useState(false)
 
+    const navigate = useNavigate()
+
     function handleSignUp(){
       setFirstNameValidator(firstName.length<4)
       setLastNameValidator(lastName.length<4)
@@ -29,9 +33,24 @@ function Signup() {
       } else {
         setPasswordComparison(false);
       }
+
+      if(!firstNameValidator && !lastNameValidator && !userNameValidator && !passwordValidator && !ConfirmPasswordValidator && !passwordComparison){
+        const userObj = {
+          "firstName": firstName,
+          "lastName": lastName,
+          "email": userName,
+          "password": password,
+          "service" : "advance"
+        }
+       const newUser = createUser(userObj)
+       navigate("/")
+       console.log("signup successfully , moving to login page");
+      }
+   
       
     }
- 
+
+
 
 
 
